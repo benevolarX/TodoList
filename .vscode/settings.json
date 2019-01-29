@@ -1,0 +1,4 @@
+{
+    "typescript.surveys.enabled": false,
+    "mocha.enabled": true
+}

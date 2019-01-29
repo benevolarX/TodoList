@@ -1,0 +1,38 @@
+{
+  "name": "todolist",
+  "version": "1.0.0",
+  "description": "simple todo list",
+  "main": "index.html",
+  "scripts": {
+    "start": "parcel index.html",
+    "watch": "parcel watch index.html",
+    "build": "parcel build index.html",
+    "rebuild": "npm run clean && npm run build",
+    "clean": "rimraf dist/ && rimraf .cache"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benevolarX/TodoList.git"
+  },
+  "keywords": [
+    "todo",
+    "list"
+  ],
+  "author": "benevolarX",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/benevolarX/TodoList/issues"
+  },
+  "homepage": "https://github.com/benevolarX/TodoList#readme",
+  "dependencies": {
+    "@benevolar/b-css": "0.0.3",
+    "preact": "^8.4.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@types/node": "^10.12.19",
+    "parcel-bundler": "^1.11.0",
+    "rimraf": "^2.6.3",
+    "typescript": "^3.2.4"
+  }
+}
