@@ -1,10 +1,21 @@
 import { Component, h, render } from "preact";
-import ITodo from "./todo";
+
+interface ITodo {
+
+    completed: boolean;
+    texte: string;
+
+}
+
+interface IProps {
+    todos?: ITodo[];
+}
 
 interface IState {
+
     filter: ((t: ITodo) => boolean);
     liste: ITodo[];
-    texte: string;
+
 }
 
 const FILTERS = {
@@ -13,60 +24,64 @@ const FILTERS = {
     completed: (todo: ITodo) => todo.completed,
 };
 
-export default class TodoList extends Component<{}, IState> {
+export default class TodoList extends Component<IProps, IState> {
 
-    constructor(prop: {}) {
+    constructor(prop: IProps) {
         super(prop);
         this.addTodo = this.addTodo.bind(this);
         this.setFilter = this.setFilter.bind(this);
         this.clearComplete = this.clearComplete.bind(this);
+        const defaultList = [
+            { texte: "hello", completed: false },
+            { texte: "bye", completed: true },
+        ];
+        const liste = (prop.todos || defaultList);
         this.state = {
             filter: FILTERS.all,
-            liste: [
-                { texte: "hello", completed: false },
-                { texte: "bye", completed: true },
-            ],
-            texte: "",
+            liste,
         };
     }
 
-    public shouldComponentUpdate() {
-        return true;
+    public shouldComponentUpdate(nextProps: IProps, nextState: IState) {
+        return this.state.filter !== nextState.filter || this.state.liste.length !== nextState.liste.length;
     }
 
     public render(props: {}, state: IState) {
-        const nb = this.state.liste.length as number;
+        console.log("render");
+        const nb = this.state.liste.filter(this.state.filter).length as number;
         const todo = <div class="flex col txt-center">
             <header class="bg-blue">
                 <h2 class="txt-size-2 txt-red title-section">todos</h2>
                 <form action="javascript:" onSubmit={this.addTodo}>
-                    <input class="" type="text" name="todo" id="todo" />
+                    <input class="w-50" type="text" name="todo" id="todo" /><br/><br/>
                 </form>
             </header>
             <div class="bg-green">
                 <ul>
                     {
                         this.state.liste.filter(this.state.filter)
-                        .map((t: ITodo) =>
-                        (<li class={t.completed ? "completed" : ""}>
-                            <button class="btn circle" onClick={
-                                () => {
-                                    t.completed = !t.completed;
-                                    this.setState({});
-                                }
-                            }> x </button>
-                            {t.texte}
-                        </li>))
+                        .map((t: ITodo) => (<li class={t.completed ? "completed" : ""}>
+                        <button class="btn circle" onClick={
+                            () => {
+                                t.completed = !t.completed;
+                                this.setState({});
+                            }
+                        }> x </button>
+                        {t.texte}
+                    </li>))
                     }
                 </ul>
             </div>
             <footer class="bg-yellow">
-                <form action="javascript:">
+                <form class="flex jc-around " action="javascript:">
                     <span>count : {nb} </span>
-                    <button onClick={() => this.setFilter(FILTERS.all)} class="btn round">All</button>
-                    <button onClick={() => this.setFilter(FILTERS.active)} class="btn round">Active</button>
-                    <button onClick={() => this.setFilter(FILTERS.completed)} class="btn round">Complete</button>
-                    <button onClick={this.clearComplete} class="btn round">Clear Complete</button>
+                    <button onClick={() => this.setFilter(FILTERS.all)} class="btn circle">All</button>
+                    <button onClick={() => this.setFilter(FILTERS.active)} class="btn circle">Active</button>
+                    <button onClick={() => this.setFilter(FILTERS.completed)} class="btn circle">Complete</button>
+                    {
+                        this.state.liste.filter(FILTERS.completed).length > 0 ?
+                        <button onClick={this.clearComplete} class="btn circle">Clear Complete</button> : ""
+                    }
                 </form>
             </footer>
         </div>;
@@ -80,10 +95,7 @@ export default class TodoList extends Component<{}, IState> {
         input.value = "";
         if (texte !== "") {
             const todo = { texte, completed: false };
-            this.setState({
-                liste: this.state.liste.concat(todo),
-                texte: "",
-            });
+            this.setState({ liste: this.state.liste.concat(todo) });
         }
     }
 
