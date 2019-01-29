@@ -4,7 +4,7 @@
   "description": "simple todo list",
   "main": "index.html",
   "scripts": {
-    "start": "parcel index.html",
+    "start": "parcel index.html --https",
     "watch": "parcel watch index.html",
     "build": "parcel build index.html",
     "rebuild": "npm run clean && npm run build",

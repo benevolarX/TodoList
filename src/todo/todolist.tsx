@@ -43,20 +43,21 @@ export default class TodoList extends Component<IProps, IState> {
     }
 
     public shouldComponentUpdate(nextProps: IProps, nextState: IState) {
-        return this.state.filter !== nextState.filter || this.state.liste.length !== nextState.liste.length;
+        return true;
     }
 
     public render(props: {}, state: IState) {
         console.log("render");
         const nb = this.state.liste.filter(this.state.filter).length as number;
-        const todo = <div class="flex col txt-center">
-            <header class="bg-blue">
-                <h2 class="txt-size-2 txt-red title-section">todos</h2>
+        const todo = <div class="flex col txt-center bg-blue">
+            <header class="">
+                <h2 class="txt-size-2 title-section">todos</h2>
                 <form action="javascript:" onSubmit={this.addTodo}>
+                    <label for="todo">todo : </label>
                     <input class="w-50" type="text" name="todo" id="todo" /><br/><br/>
                 </form>
             </header>
-            <div class="bg-green">
+            <div class="">
                 <ul>
                     {
                         this.state.liste.filter(this.state.filter)
@@ -72,7 +73,7 @@ export default class TodoList extends Component<IProps, IState> {
                     }
                 </ul>
             </div>
-            <footer class="bg-yellow">
+            <footer class="">
                 <form class="flex jc-around " action="javascript:">
                     <span>count : {nb} </span>
                     <button onClick={() => this.setFilter(FILTERS.all)} class="btn circle">All</button>
