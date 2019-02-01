@@ -853,13 +853,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -879,10 +879,38 @@ var FILTERS = {
   }
 };
 
-var TodoList =
+var TodoItem =
 /*#__PURE__*/
 function (_preact_1$Component) {
-  _inherits(TodoList, _preact_1$Component);
+  _inherits(TodoItem, _preact_1$Component);
+
+  function TodoItem(prop) {
+    _classCallCheck(this, TodoItem);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(TodoItem).call(this, prop));
+  }
+
+  _createClass(TodoItem, [{
+    key: "render",
+    value: function render() {
+      return preact_1.h("div", {
+        class: "full-width"
+      }, preact_1.h("span", null, "X"), " ", this.Text);
+    }
+  }, {
+    key: "Text",
+    get: function get() {
+      return preact_1.h("span", null, "texte");
+    }
+  }]);
+
+  return TodoItem;
+}(preact_1.Component);
+
+var TodoList =
+/*#__PURE__*/
+function (_preact_1$Component2) {
+  _inherits(TodoList, _preact_1$Component2);
 
   function TodoList(prop) {
     var _this;
@@ -1068,7 +1096,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63543" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52355" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

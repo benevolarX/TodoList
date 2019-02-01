@@ -24,9 +24,24 @@ const FILTERS = {
     completed: (todo: ITodo) => todo.completed,
 };
 
+class TodoItem extends Component<{}, {}> {
+    public constructor(prop: {}) {
+        super(prop);
+    }
+    public render() {
+        return <div class="full-width">
+            <span>X</span> { this.Text }
+        </div>;
+    }
+
+    private get Text() {
+        return <span>texte</span>;
+    }
+}
+
 export default class TodoList extends Component<IProps, IState> {
 
-    constructor(prop: IProps) {
+    public constructor(prop: IProps) {
         super(prop);
         this.addTodo = this.addTodo.bind(this);
         this.setFilter = this.setFilter.bind(this);
