@@ -23,21 +23,6 @@ const FILTERS = {
     all: (todo: ITodo) => true,
     completed: (todo: ITodo) => todo.completed,
 };
-/*
-class TodoItem extends Component<{}, {}> {
-    public constructor(prop: {}) {
-        super(prop);
-    }
-    public render() {
-        return <div class="full-width">
-            <span>X</span> { this.Text }
-        </div>;
-    }
-
-    private get Text() {
-        return <span>texte</span>;
-    }
-}*/
 
 export default class TodoList extends Component<IProps, IState> {
 
@@ -107,10 +92,8 @@ export default class TodoList extends Component<IProps, IState> {
 
     private addTodo(e: Event) {
         const form = e.target as HTMLFormElement;
-        // console.log(form);
         const inputs = form.getElementsByTagName("input");
         const input = inputs[0];
-        // console.log(input);
         const texte = input.value as string;
         input.value = "";
         if (texte !== "") {
