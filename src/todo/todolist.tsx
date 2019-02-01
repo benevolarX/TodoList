@@ -47,7 +47,6 @@ export default class TodoList extends Component<IProps, IState> {
     }
 
     public render(props: {}, state: IState) {
-        console.log("render");
         const nb = this.state.liste.filter(this.state.filter).length as number;
         const todo = <div class="flex col txt-center bg-blue">
             <header class="">
