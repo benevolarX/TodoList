@@ -853,13 +853,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -879,38 +879,10 @@ var FILTERS = {
   }
 };
 
-var TodoItem =
-/*#__PURE__*/
-function (_preact_1$Component) {
-  _inherits(TodoItem, _preact_1$Component);
-
-  function TodoItem(prop) {
-    _classCallCheck(this, TodoItem);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(TodoItem).call(this, prop));
-  }
-
-  _createClass(TodoItem, [{
-    key: "render",
-    value: function render() {
-      return preact_1.h("div", {
-        class: "full-width"
-      }, preact_1.h("span", null, "X"), " ", this.Text);
-    }
-  }, {
-    key: "Text",
-    get: function get() {
-      return preact_1.h("span", null, "texte");
-    }
-  }]);
-
-  return TodoItem;
-}(preact_1.Component);
-
 var TodoList =
 /*#__PURE__*/
-function (_preact_1$Component2) {
-  _inherits(TodoList, _preact_1$Component2);
+function (_preact_1$Component) {
+  _inherits(TodoList, _preact_1$Component);
 
   function TodoList(prop) {
     var _this;
@@ -947,38 +919,7 @@ function (_preact_1$Component2) {
       var _this2 = this;
 
       var nb = this.state.liste.filter(this.state.filter).length;
-      var todo = preact_1.h("div", {
-        class: "flex col txt-center bg-blue"
-      }, preact_1.h("header", {
-        class: ""
-      }, preact_1.h("h2", {
-        class: "txt-size-2 title-section"
-      }, "todos"), preact_1.h("form", {
-        action: "javascript:",
-        onSubmit: this.addTodo
-      }, preact_1.h("label", {
-        for: "todo"
-      }, "todo : "), preact_1.h("input", {
-        class: "w-50",
-        type: "text",
-        name: "todo",
-        id: "todo"
-      }), preact_1.h("br", null), preact_1.h("br", null))), preact_1.h("div", {
-        class: ""
-      }, preact_1.h("ul", null, this.state.liste.filter(this.state.filter).map(function (t) {
-        return preact_1.h("li", {
-          class: t.completed ? "completed" : ""
-        }, preact_1.h("button", {
-          class: "btn circle",
-          onClick: function onClick() {
-            t.completed = !t.completed;
-
-            _this2.setState({});
-          }
-        }, " x "), t.texte);
-      }))), preact_1.h("footer", {
-        class: ""
-      }, preact_1.h("form", {
+      var form = preact_1.h("form", {
         class: "flex jc-around ",
         action: "javascript:"
       }, preact_1.h("span", null, "count : ", nb, " "), preact_1.h("button", {
@@ -999,14 +940,47 @@ function (_preact_1$Component2) {
       }, "Complete"), this.state.liste.filter(FILTERS.completed).length > 0 ? preact_1.h("button", {
         onClick: this.clearComplete,
         class: "btn circle"
-      }, "Clear Complete") : "")));
+      }, "Clear Complete") : "");
+      var todo = preact_1.h("div", {
+        class: "flex col txt-center bg-blue"
+      }, preact_1.h("header", {
+        class: ""
+      }, preact_1.h("h2", {
+        class: "txt-size-2 title-section"
+      }, "todos"), preact_1.h("form", {
+        action: "javascript:",
+        onSubmit: this.addTodo
+      }, preact_1.h("label", {
+        for: "todo"
+      }, "todo : "), preact_1.h("input", {
+        class: "w-50",
+        type: "text",
+        name: "todo",
+        id: "todo"
+      }), preact_1.h("br", null), preact_1.h("br", null)), form), preact_1.h("div", {
+        class: ""
+      }, preact_1.h("ul", null, this.state.liste.filter(this.state.filter).map(function (t) {
+        return preact_1.h("li", {
+          class: t.completed ? "completed" : ""
+        }, preact_1.h("button", {
+          class: "btn circle",
+          onClick: function onClick() {
+            t.completed = !t.completed;
+
+            _this2.setState({});
+          }
+        }, " x "), t.texte);
+      }))), preact_1.h("footer", {
+        class: ""
+      }, form));
       return todo;
     }
   }, {
     key: "addTodo",
     value: function addTodo(e) {
       var form = e.target;
-      var input = form.firstChild;
+      var inputs = form.getElementsByTagName("input");
+      var input = inputs[0];
       var texte = input.value;
       input.value = "";
 
@@ -1015,8 +989,9 @@ function (_preact_1$Component2) {
           texte: texte,
           completed: false
         };
+        var liste = this.state.liste.concat(todo);
         this.setState({
-          liste: this.state.liste.concat(todo)
+          liste: liste
         });
       }
     }
@@ -1064,7 +1039,7 @@ window.console.clear = function () {
 
 var App = function App() {
   return preact_1.h("div", {
-    class: "body"
+    class: "body full"
   }, preact_1.h(TodoList_1.default, null));
 };
 

@@ -23,7 +23,7 @@ const FILTERS = {
     all: (todo: ITodo) => true,
     completed: (todo: ITodo) => todo.completed,
 };
-
+/*
 class TodoItem extends Component<{}, {}> {
     public constructor(prop: {}) {
         super(prop);
@@ -37,7 +37,7 @@ class TodoItem extends Component<{}, {}> {
     private get Text() {
         return <span>texte</span>;
     }
-}
+}*/
 
 export default class TodoList extends Component<IProps, IState> {
 
@@ -63,6 +63,16 @@ export default class TodoList extends Component<IProps, IState> {
 
     public render(props: {}, state: IState) {
         const nb = this.state.liste.filter(this.state.filter).length as number;
+        const form = <form class="flex jc-around " action="javascript:">
+        <span>count : {nb} </span>
+        <button onClick={() => this.setFilter(FILTERS.all)} class="btn circle">All</button>
+        <button onClick={() => this.setFilter(FILTERS.active)} class="btn circle">Active</button>
+        <button onClick={() => this.setFilter(FILTERS.completed)} class="btn circle">Complete</button>
+        {
+            this.state.liste.filter(FILTERS.completed).length > 0 ?
+            <button onClick={this.clearComplete} class="btn circle">Clear Complete</button> : ""
+        }
+        </form>;
         const todo = <div class="flex col txt-center bg-blue">
             <header class="">
                 <h2 class="txt-size-2 title-section">todos</h2>
@@ -70,6 +80,7 @@ export default class TodoList extends Component<IProps, IState> {
                     <label for="todo">todo : </label>
                     <input class="w-50" type="text" name="todo" id="todo" /><br/><br/>
                 </form>
+                { form }
             </header>
             <div class="">
                 <ul>
@@ -88,16 +99,7 @@ export default class TodoList extends Component<IProps, IState> {
                 </ul>
             </div>
             <footer class="">
-                <form class="flex jc-around " action="javascript:">
-                    <span>count : {nb} </span>
-                    <button onClick={() => this.setFilter(FILTERS.all)} class="btn circle">All</button>
-                    <button onClick={() => this.setFilter(FILTERS.active)} class="btn circle">Active</button>
-                    <button onClick={() => this.setFilter(FILTERS.completed)} class="btn circle">Complete</button>
-                    {
-                        this.state.liste.filter(FILTERS.completed).length > 0 ?
-                        <button onClick={this.clearComplete} class="btn circle">Clear Complete</button> : ""
-                    }
-                </form>
+                { form }
             </footer>
         </div>;
         return todo;
@@ -105,12 +107,16 @@ export default class TodoList extends Component<IProps, IState> {
 
     private addTodo(e: Event) {
         const form = e.target as HTMLFormElement;
-        const input = form.firstChild as HTMLInputElement;
+        // console.log(form);
+        const inputs = form.getElementsByTagName("input");
+        const input = inputs[0];
+        // console.log(input);
         const texte = input.value as string;
         input.value = "";
         if (texte !== "") {
-            const todo = { texte, completed: false };
-            this.setState({ liste: this.state.liste.concat(todo) });
+            const todo: ITodo = { texte, completed: false };
+            const liste = this.state.liste.concat(todo);
+            this.setState({ liste });
         }
     }
 
