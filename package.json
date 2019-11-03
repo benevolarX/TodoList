@@ -26,14 +26,14 @@
   "homepage": "https://github.com/benevolarX/TodoList#readme",
   "dependencies": {
     "@benevolar/b-css": "0.0.7",
-    "preact": "^10.0.1"
+    "parcel": "^1.12.4",
+    "preact": "^10.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",
     "@babel/plugin-transform-react-jsx": "^7.3.0",
-    "@types/node": "^12.11.1",
+    "@types/node": "^12.12.5",
     "cssnano": "^4.1.10",
-    "parcel-bundler": "https://github.com/parcel-bundler/parcel.git#v2",
     "rimraf": "^3.0.0",
     "typescript": "^3.6.4"
   }
