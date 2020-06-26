@@ -25,16 +25,16 @@
   },
   "homepage": "https://github.com/benevolarX/TodoList#readme",
   "dependencies": {
-    "@benevolar/b-css": "0.0.7",
-    "parcel": "^1.12.4",
-    "preact": "^10.3.4"
+    "@benevolar/b-css": "^0.2.0",
+    "parcel-bundler": "^1.12.4",
+    "preact": "^10.4.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.7",
-    "@babel/plugin-transform-react-jsx": "^7.8.3",
-    "@types/node": "^12.12.30",
+    "@babel/core": "^7.10.3",
+    "@babel/plugin-transform-react-jsx": "^7.10.3",
+    "@types/node": "^14.0.14",
     "cssnano": "^4.1.10",
     "rimraf": "^3.0.2",
-    "typescript": "^3.8.3"
+    "typescript": "^3.9.5"
   }
 }
